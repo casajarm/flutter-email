@@ -1,4 +1,7 @@
-# untitled
+# flutter-email
+
+working directly in Dart to create email client
+no 3rd party JARs or PODs
 
 A new Flutter project.
 
