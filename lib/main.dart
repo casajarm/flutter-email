@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import './mailer.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -18,6 +20,10 @@ class MyApp extends StatelessWidget {
       home: MyHomePage(),
     );
   }
+}
+
+void buttonPressed() async {
+  print('button pressed');
 }
 
 class MyHomePage extends StatefulWidget {
@@ -95,14 +101,32 @@ class _MyHomePageState extends State<MyHomePage> {
                   fontFamily: "Merriweather",
                 ),
               ),
-              TextField(
+              TextFormField(
+                minLines: 6,
+                maxLines: 14,
                 style: TextStyle(
                   fontSize: 22.0,
                   color: const Color(0xFF000000),
                   fontWeight: FontWeight.w200,
                   fontFamily: "Merriweather",
                 ),
-              )
+              ),
+              TextButton(
+                  key: null,
+                  onPressed: buttonPressed,
+                  style: TextButton.styleFrom(
+                      padding: const EdgeInsets.all(16.0),
+                      primary: Colors.white,
+                      textStyle: const TextStyle(
+                        fontSize: 20,
+                        color: const Color(0xFF000000),
+                        fontWeight: FontWeight.w600,
+                        fontFamily: "Merriweather",
+                      ),
+                      backgroundColor: Colors.blue),
+                  child: Text(
+                    "Send Message",
+                  )),
             ]),
         padding: const EdgeInsets.all(0.0),
         alignment: Alignment.center,
