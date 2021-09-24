@@ -1,19 +1,18 @@
 import 'dart:io';
 import 'package:enough_mail/enough_mail.dart';
 
-class EmailConfig{
-  final String EmailAddress;
+class EmailConfig {
+  final String emailAddress;
   final String password;
   final String server;
 
-  EmailConfig(this.EmailAddress, this.password, this.server);
+  EmailConfig(this.emailAddress, this.password, this.server);
 }
 
-List emailConfigs = [EmailConfig(
-'kade.koss49@ethereal.email',
-'W7NyENBmpe1tYw3ZCu',
-'smtp.ethereal.email')
-, EmailConfig('test1', 'pass', 'servername')
+List emailConfigs = [
+  EmailConfig('kade.koss49@ethereal.email', 'W7NyENBmpe1tYw3ZCu',
+      'smtp.ethereal.email'),
+  EmailConfig('test1', 'pass', 'servername')
 ];
 
 /*

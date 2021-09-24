@@ -34,8 +34,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
-  final List<String> emailsList = emailConfigs.map<String>((e) => e.EmailAddress).toList();
+  final List<String> emailsList =
+      emailConfigs.map<String>((e) => e.emailAddress).toList();
   //have to be really specific here to tell dart that the list coming into map is going to be a string
   @override
   Widget build(BuildContext context) {
@@ -133,4 +133,3 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
-
