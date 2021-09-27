@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
-
+/* mostly taken from https://medium.com/flutterdevs/dropdown-in-flutter-324ae9caa743 */
 class DropdownList extends StatefulWidget {
   //String chosenValue;
   List<String> itemsList;
-  DropdownList(this.itemsList);
+  String stateElement;
+  DropdownList(this.itemsList, this.stateElement);
   @override
-  _DropdownState createState() => _DropdownState(itemsList);
+  _DropdownState createState() => _DropdownState(itemsList, stateElement);
 }
 
 class _DropdownState extends State<DropdownList> {
   List<String> _itemsList;
   String _chosenValue = '1';
+  String _stateElement;
 
-  _DropdownState(this._itemsList);
+  _DropdownState(this._itemsList, this._stateElement);
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -29,7 +31,7 @@ class _DropdownState extends State<DropdownList> {
             );
           }).toList(),
           hint: Text(
-            "Please choose a langauage",
+            "Please choose an email account",
             style: TextStyle(
                 color: Colors.black,
                 fontSize: 16,
@@ -37,7 +39,8 @@ class _DropdownState extends State<DropdownList> {
           ),
           onChanged: (String? value) => setState(() {
             if (value!.isNotEmpty) {
-              this._chosenValue = value;
+              _chosenValue = value;
+              _stateElement = value;
               print('set value to: ' + value);
             }
             }),
