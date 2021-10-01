@@ -3,6 +3,14 @@ import 'package:flutter/material.dart';
 import './droplist.dart';
 import './models/email-message.dart';
 import './models/mail-provider.dart';
+import 'models/email-account.dart';
+
+List emailAccountList = [
+  EmailAccount('info@sqlprompt.net', 'nopasswordhere', 'smtp.ethereal.email'),
+  EmailAccount('kade.koss49@ethereal.email', 'W7NyENBmpe1tYw3ZCu',
+      'smtp.ethereal.email'),
+  EmailAccount('test1', 'pass', 'servername')
+];
 
 void main() {
   runApp(MyApp());
@@ -33,17 +41,22 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   final GlobalKey<FormState> _formKey = GlobalKey<
       FormState>(); //important to annotate that the globalkey is formstate object
-  final _message = EmailMessage();
-  var _emailService = EmailService();
-  final List<String> emailsList =
-      emailConfigs.map<String>((e) => e.EmailAddress).toList();
-  //have to be really specific here to tell dart that the list coming into map is going to be a string
+  final _message = new EmailMessage();
+  var _emailService = EmailService(emailAccountList[0]);
 
+  TestMailAccount _testEmailAccount = new TestMailAccount();
+
+  final List<String> emailsList =
+      emailAccountList.map<String>((e) => e.emailAddress).toList();
+  //have to be really specific here to tell dart that the list coming into map is going to be a string
   void setFromAddress(address) {
     setState(() {
       _message.fromUser = address;
       print('setting state for from address: ' + address);
     });
+    //_emailService.emailAccount = emailAccountList[0];
+    //_emailService.setConfig();
+    _testEmailAccount.init(address, 'password');
   }
 
   @override

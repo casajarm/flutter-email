@@ -1,27 +1,61 @@
 import 'package:enough_mail/enough_mail.dart';
 import './email-message.dart';
+import './email-account.dart';
 
-class EmailConfig {
-  final String EmailAddress;
-  final String password;
-  final String server;
+class TestMailAccount {
+  TestMailAccount();
+  late MailAccount _account;
+  MailClient? _mailClient;
+  var dummy = 1;
 
-  EmailConfig(this.EmailAddress, this.password, this.server);
-}
+  late ClientConfig _clientConfig;
 
-class EmailService {
-  late EmailConfig account;
-  send(emailMessage) {
-    var sendMail = SendMail(emailMessage, account);
+  void init(String email, String password) async {
+    print('init email account');
+
+    _clientConfig = (await Discover.discover(email, isLogEnabled: false))!;
+    _account = MailAccount.fromDiscoveredSettings(
+        'my account', email, password, _clientConfig);
+    _mailClient = MailClient(_account, isLogEnabled: true);
+    print(_clientConfig.preferredOutgoingSmtpServer);
+  }
+
+  setConfig() async {
+    ClientConfig? _config =
+        (await Discover.discover(_account.email!, isLogEnabled: false));
+    if (_config?.preferredOutgoingSmtpServer != null) {
+      print(_config?.preferredOutgoingSmtpServer);
+    } else {
+      print('no smtp server found');
+    }
   }
 }
 
-List emailConfigs = [
-  EmailConfig('kade.koss49@ethereal.email',
-              'W7NyENBmpe1tYw3ZCu',
-              'smtp.ethereal.email'),
-  EmailConfig('test1', 'pass', 'servername')
-];
+class EmailService {
+  EmailService(this.emailAccount);
+
+  late EmailAccount emailAccount;
+  ClientConfig? clientConfig;
+  send(emailMessage) {
+    var sendMail = SendMail(emailMessage, emailAccount);
+    print(sendMail);
+  }
+
+  setConfig() async {
+    clientConfig =
+        await Discover.discover(emailAccount.emailAddress, isLogEnabled: false);
+    if (clientConfig?.preferredOutgoingSmtpServer != null) {
+      print(clientConfig?.preferredOutgoingSmtpServer);
+    } else {
+      print('no smtp server found');
+    }
+  }
+}
+
+/*
+
+  
+*/
 
 String userName = 'kade.koss49@ethereal.email';
 String password = 'W7NyENBmpe1tYw3ZCu';
@@ -109,8 +143,8 @@ Future<void> smtpExample() async {
 
 /// High level mail API example
 Future<void> SendMail(
-    EmailMessage emailMessage, EmailConfig emailConfig) async {
-  final email = emailConfig.EmailAddress;
+    EmailMessage emailMessage, EmailAccount emailConfig) async {
+  final email = emailConfig.emailAddress;
 
   print('discovering settings for  $email...');
   final config = await Discover.discover(email);
