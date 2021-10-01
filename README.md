@@ -3,17 +3,15 @@
 working directly in Dart to create email client
 no 3rd party JARs or PODs
 
-A new Flutter project.
+Just clone and run 
+>> dart pub get 
+in terminal
 
-## Getting Started
+One form right now that lets you pick from a list of addresses
+debug output shows it searching for the email server settings based on the address chosen
 
-This project is a starting point for a Flutter application.
+Next step is to hook this into the email form and test sending email
 
-A few resources to get you started if this is your first Flutter project:
+After this step the email form will be separated from the choose address form and password will be added to the
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+One complication is GMail and other providers use OAuth and for GMail this may require app registration firstItem
