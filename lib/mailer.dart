@@ -16,23 +16,6 @@ List emailConfigs = [EmailConfig(
 , EmailConfig('test1', 'pass', 'servername')
 ];
 
-/*
-List<emailConfig> emailConfigs(String from, String password, String server) = list.from();
-[
-  {
-    'from': 'kade.koss49@ethereal.email',
-    'password': 'W7NyENBmpe1tYw3ZCu',
-    'server': 'smtp.ethereal.email'
-  },
-  {
-    'from': 'tester2@email',
-    'password': 'W7NyENBmpe1tYw3ZCu',
-    'server': 'smtp.ethereal.email'
-  }
-];
-*/
-
-//var nodemailer = emails[0];
 
 String userName = 'kade.koss49@ethereal.email';
 String password = 'W7NyENBmpe1tYw3ZCu';
