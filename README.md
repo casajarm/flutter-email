@@ -4,7 +4,8 @@ working directly in Dart to create email client
 no 3rd party JARs or PODs
 
 Just clone and run 
->> dart pub get 
+-- dart pub get 
+
 in terminal
 
 One form right now that lets you pick from a list of addresses
