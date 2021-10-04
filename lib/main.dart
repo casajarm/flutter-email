@@ -5,7 +5,7 @@ import './models/email-message.dart';
 import './models/mail-provider.dart';
 import 'models/email-account.dart';
 
-List emailAccountList = [
+List<EmailAccount> emailAccountList = [
   EmailAccount('info@sqlprompt.net', 'nopasswordhere', 'smtp.ethereal.email'),
   EmailAccount('kade.koss49@ethereal.email', 'W7NyENBmpe1tYw3ZCu',
       'smtp.ethereal.email'),
@@ -49,13 +49,22 @@ class _MyHomePageState extends State<MyHomePage> {
   final List<String> emailsList =
       emailAccountList.map<String>((e) => e.emailAddress).toList();
   //have to be really specific here to tell dart that the list coming into map is going to be a string
-  void setFromAddress(address) {
+  void setFromAddress(address) async {
     setState(() {
       _message.fromUser = address;
       print('setting state for from address: ' + address);
     });
     //_emailService.emailAccount = emailAccountList[0];
     //_emailService.setConfig();
+
+    //get the email account from the list for given/selected address
+
+    print(emailAccountList.runtimeType);
+
+    EmailAccount _account =
+        findEmailAccountByAddress(emailAccountList, address);
+    print('found account:  ' + _account.emailAddress);
+
     _testEmailAccount.init(address, 'password');
   }
 
