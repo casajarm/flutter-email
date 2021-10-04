@@ -2,32 +2,75 @@ import 'package:enough_mail/enough_mail.dart';
 import './email-message.dart';
 import './email-account.dart';
 
+void test() async {
+  var c = await ExtendMailAccount.create('greg@sqlprompt.net', 'test');
+}
+
+class ExtendMailAccount extends MailAccount {
+  /// Private constructor
+  ExtendMailAccount._create() {
+    print("_create() (private constructor)");
+
+    // Do most of your initialization here, that's what a constructor is for
+    //...
+  }
+
+  /// Public factory
+  static Future<MailAccount> create(String email, String password) async {
+    print("create() (public factory)");
+
+    // Call the private constructor
+    //var component = ExtendMailAccount._create();
+
+    // Do initialization that requires async
+    //await component._complexAsyncInit();
+
+    ClientConfig _clientConfig =
+        (await Discover.discover(email, isLogEnabled: false))!;
+    String _domain = email;
+
+    MailAccount component = MailAccount.fromDiscoveredSettings(
+        'my account', email, password, _clientConfig,
+        userName: email, outgoingClientDomain: _domain);
+
+    // Return the fully initialized object
+    return component;
+  }
+}
+
 class TestMailAccount {
   TestMailAccount();
-  late MailAccount _account;
-  MailClient? _mailClient;
+  late MailAccount account;
+  //MailServerConfig? _mailServer;
   var dummy = 1;
-
-  late ClientConfig _clientConfig;
 
   void init(String email, String password) async {
     print('init email account');
-
-    _clientConfig = (await Discover.discover(email, isLogEnabled: false))!;
-    _account = MailAccount.fromDiscoveredSettings(
-        'my account', email, password, _clientConfig);
-    _mailClient = MailClient(_account, isLogEnabled: true);
+    ClientConfig _clientConfig =
+        (await Discover.discover(email, isLogEnabled: false))!;
+    String _domain = email;
+    account = MailAccount.fromDiscoveredSettings(
+        'my account', email, password, _clientConfig,
+        userName: email, outgoingClientDomain: _domain);
+    //_mailServer = MailServerConfig         MailClient(_account, isLogEnabled: true);
     print(_clientConfig.preferredOutgoingSmtpServer);
+
+    test();
   }
 
   setConfig() async {
     ClientConfig? _config =
-        (await Discover.discover(_account.email!, isLogEnabled: false));
+        (await Discover.discover(account.email!, isLogEnabled: false));
     if (_config?.preferredOutgoingSmtpServer != null) {
       print(_config?.preferredOutgoingSmtpServer);
     } else {
       print('no smtp server found');
     }
+  }
+
+  void printConfig() {
+    print(this.toString());
+    //TODO figure out how to print setting for account config
   }
 }
 
