@@ -55,7 +55,28 @@ class TestMailAccount {
     //_mailServer = MailServerConfig         MailClient(_account, isLogEnabled: true);
     print(_clientConfig.preferredOutgoingSmtpServer);
 
-    test();
+    final mailClient = MailClient(account, isLogEnabled: true);
+    try {
+      await mailClient.connect();
+      print('connected');
+/*
+    final mailboxes =
+        await mailClient.listMailboxesAsTree(createIntermediate: false);
+    print(mailboxes);
+    await mailClient.selectInbox();
+    final messages = await mailClient.fetchMessages(count: 20);
+    for (final msg in messages) {
+      printMessage(msg);
+    }
+    mailClient.eventBus.on<MailLoadEvent>().listen((event) {
+      print('New message at ${DateTime.now()}:');
+      printMessage(event.message);
+    });
+    await mailClient.startPolling();
+    */
+    } on MailException catch (e) {
+      print('High level API failed with $e');
+    }
   }
 
   setConfig() async {
