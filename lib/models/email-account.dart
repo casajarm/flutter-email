@@ -15,3 +15,10 @@ EmailAccount findEmailAccountByAddress(
   });
   return emailAccount;
 }
+
+List<EmailAccount> emailAccountList = [
+  EmailAccount('info@sqlprompt.net', 'nopasswordhere', 'smtp.ethereal.email'),
+  EmailAccount('kade.koss49@ethereal.email', 'W7NyENBmpe1tYw3ZCu',
+      'smtp.ethereal.email'),
+  EmailAccount('test1', 'pass', 'servername')
+];
