@@ -5,13 +5,6 @@ import './models/email-message.dart';
 import './models/mail-provider.dart';
 import 'models/email-account.dart';
 
-List<EmailAccount> emailAccountList = [
-  EmailAccount('info@sqlprompt.net', 'nopasswordhere', 'smtp.ethereal.email'),
-  EmailAccount('kade.koss49@ethereal.email', 'W7NyENBmpe1tYw3ZCu',
-      'smtp.ethereal.email'),
-  EmailAccount('test1', 'pass', 'servername')
-];
-
 void main() {
   runApp(MyApp());
 }
@@ -65,7 +58,8 @@ class _MyHomePageState extends State<MyHomePage> {
         findEmailAccountByAddress(emailAccountList, address);
     print('found account:  ' + _account.emailAddress);
 
-    _testEmailAccount.init(address, 'password');
+    _testEmailAccount.init(address, _account.password);
+    print('initialized account object with data');
   }
 
   @override
